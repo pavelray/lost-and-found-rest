@@ -5,7 +5,8 @@ from services.location import LocationService
 
 class Location(Resource):
     def get(self):
-        '''Get all the locations'''
+        '''Get Method'''
+        '''Return all locations'''
         try:
             value = LocationService.get_all_locations()
             return value , 200

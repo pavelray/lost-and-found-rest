@@ -5,7 +5,7 @@ class ItemService():
     
     @classmethod
     def get_all_items(cls):
-        '''Returns the all location values as dictonary format'''
+        '''Returns all items'''
         item_values = ItemModel.get_all_items()
         item_list = to_dict(item_values)
         return item_list
@@ -13,6 +13,7 @@ class ItemService():
     
     @classmethod
     def find_by_category(cls,category):
+        '''Find Item by Item Category'''
         item_values = ItemModel.find_by_category(category)
         item_list = to_dict(item_values)
         
@@ -22,6 +23,7 @@ class ItemService():
         return None
 
     @classmethod
-    def insert_item(cls,item):
-        item = ItemModel(item.item_category, item.type_of_item)
+    def insert_item(cls,item_category,type_of_item):
+        '''Save Item to database'''    
+        item = ItemModel(item_category, type_of_item)
         item.insert_item()

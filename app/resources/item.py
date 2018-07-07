@@ -9,7 +9,7 @@ class Item(Resource):
     parser = reqparse.RequestParser()
 
     def get(self):
-        '''Get all the Items'''
+        '''Get Method'''
         try:
             value = ItemService.get_all_items()
             return value , 200
@@ -17,14 +17,15 @@ class Item(Resource):
             return {'message': str(e)}, 500
 
     def post(self):
+        '''Post Method'''
+        '''Receive JSON value'''
+        
         data = request.get_json(silent=True)
         if ItemService.find_by_category(data['item_category']) is not None:
             return {'message': "An item with category '{}' already exists.".format(data['item_category'])}, 400
-
-        item = ItemModel(data['item_category'],data['type_of_item'])
-
+        
         try:
-            ItemService.insert_item(item)
+            ItemService.insert_item(data['item_category'],data['type_of_item'])
         except Exception as e:
             return {"message": str(e)}, 500
 

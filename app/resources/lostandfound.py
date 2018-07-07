@@ -7,6 +7,7 @@ from models.lostandfound import LostAndFoundModel
 class LostAndFound(Resource):
     
     def get(self):
+        '''Get Method'''
         try:
             value = LostAndFoundService.get_all_lost_found_items()
             return value , 200
@@ -14,13 +15,14 @@ class LostAndFound(Resource):
             return {'message': str(e)}, 500
 
     def post(self):
+        '''Post Method'''
+        '''Accepts JSON value'''
         data = request.get_json(silent=True)
-        lost_found_item = LostAndFoundModel(data['item_number'],data['location_id'],
+        
+        try:
+            LostAndFoundService.save_lost_found_item(data['item_number'],data['location_id'],
                                 data['picture'],data['last_seen_at'],data['is_found'], data['email_id']
                                 ,data['first_name'],data['last_name'],data['contact_number'],data['description'])
-
-        try:
-            LostAndFoundService.save_lost_found_item(lost_found_item)
         except Exception as e:
             return {"message": str(e)}, 500
 
@@ -30,6 +32,8 @@ class LostAndFound(Resource):
 class Lost(Resource):
     
     def get(self):
+        '''Get Method'''
+        '''Returns all Lost items'''
         try:
             value = LostAndFoundService.get_all_lost_items()
             return value , 200
@@ -46,6 +50,8 @@ class Lost(Resource):
 class Found(Resource):
     
     def get(self):
+        '''Get Method'''
+        '''Returns all Found items'''
         try:
             value = LostAndFoundService.get_all_found_items()
             return value , 200
@@ -62,6 +68,8 @@ class Found(Resource):
 class LostAndFoundByKey(Resource):
     
     def get(self,search_key):
+        '''Get Method'''
+        '''Return the item based on search key found in item description'''
         try:
             value = LostAndFoundService.get_lost_found_items_by_description(search_key)
             return value , 200

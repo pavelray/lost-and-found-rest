@@ -68,5 +68,6 @@ class LostAndFoundModel(db.Model):
         return value
     
     def save_lost_found_item(self):
+        '''Save Lost and found Item on Database'''
         db.session.add(self)
         db.session.commit()
