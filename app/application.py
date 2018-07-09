@@ -5,7 +5,7 @@ from flask_jwt import JWT, jwt_required
 from utility.security import authenticate,identity
 from utility.createapp import create_app
 from resources.lostandfound import LostAndFound , Lost, Found, LostAndFoundByKey
-from resources.location import Location
+from resources.location import Location, City , Country , CityByCountry
 from resources.item import Item
   
 
@@ -19,6 +19,9 @@ api.add_resource(Lost,'/lost/')
 api.add_resource(Found,'/found/')
 api.add_resource(LostAndFoundByKey,'/lost_found/<string:search_key>')
 api.add_resource(Location,'/location/')
+api.add_resource(City,'/cities/')
+api.add_resource(CityByCountry,'/cities/<string:country_code>')
+api.add_resource(Country,'/countries/')
 api.add_resource(Item,'/items/')
 
 if __name__ == '__main__':    
